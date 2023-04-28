@@ -7,6 +7,8 @@ class Move{
         Player mPlayer;
     public:
         Move(int row, int col, Player player);
+        Move(const Move& other);
+        Move();
         ~Move();
         int getRow();
         int getColumn();
@@ -14,6 +16,7 @@ class Move{
         void setRow(int row);
         void setColumn(int column);
         void setPlayer(Player player);
+        Move& operator=(const Move& other);
 };
 
 Move::Move(int row, int col, Player player)
@@ -23,8 +26,33 @@ Move::Move(int row, int col, Player player)
     mPlayer = player;
 }
 
+Move::Move(const Move& other)
+{
+    mRow = other.mRow;
+    mColumn = other.mColumn;
+    mPlayer = other.mPlayer;
+}
+
+Move::Move()
+{
+}
+
 Move::~Move()
 {
+}
+
+Move& Move::operator=(const Move& other) {
+    if (this == &other) {
+        return *this; // handle self-assignment
+    }
+
+    // Copy the data from 'other' to this object
+    // For example, if the Player class has an 'int score' member:
+    mRow = other.mRow;
+    mColumn = other.mColumn;
+    mPlayer = other.mPlayer;
+    // Return *this to allow for chained assignment (e.g., a = b = c)
+    return *this;
 }
 
 int Move::getRow()
